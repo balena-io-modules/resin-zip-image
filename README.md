@@ -33,6 +33,7 @@ Documentation
     * [.getImageEntries(zip)](#module_zip.getImageEntries) ⇒ <code>Array.&lt;Object&gt;</code>
     * [.isValidZipImage(zip)](#module_zip.isValidZipImage) ⇒ <code>Boolean</code>
     * [.extractImage(zip)](#module_zip.extractImage) ⇒ <code>Promise</code>
+    * [.isZip(file)](#module_zip.isZip) ⇒ <code>Boolean</code>
 
 <a name="module_zip.getImageEntries"></a>
 ### zip.getImageEntries(zip) ⇒ <code>Array.&lt;Object&gt;</code>
@@ -107,6 +108,24 @@ zipImage = require('resin-zip-image')
 
 zipImage.extractImage('path/to/archive.zip').then (stream) ->
   stream.pipe(fs.createWriteStream('output.img'))
+```
+<a name="module_zip.isZip"></a>
+### zip.isZip(file) ⇒ <code>Boolean</code>
+**Kind**: static method of <code>[zip](#module_zip)</code>  
+**Summary**: Check if a file is a zip archive  
+**Returns**: <code>Boolean</code> - whether the file is a zip archive  
+**Access:** public  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| file | <code>String</code> | file path |
+
+**Example**  
+```js
+zipImage = require('resin-zip-image')
+
+if zipImage.isZip('path/to/file')
+  console.log('This file is a Zip archive!')
 ```
 
 Support

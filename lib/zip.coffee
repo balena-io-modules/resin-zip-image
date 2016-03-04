@@ -21,6 +21,8 @@ limitations under the License.
 _ = require('lodash')
 path = require('path')
 AdmZip = require('adm-zip')
+readChunk = require('read-chunk')
+fileType = require('file-type')
 utils = require('./utils')
 
 IMAGE_FORMATS = [
@@ -52,7 +54,7 @@ IMAGE_FORMATS = [
 #   console.log(imageEntry.size)
 ###
 exports.getImageEntries = (zip) ->
-	if not utils.isZip(zip)
+	if not exports.isZip(zip)
 		throw new Error('Invalid zip image')
 
 	admZip = new AdmZip(zip)
@@ -89,7 +91,7 @@ exports.getImageEntries = (zip) ->
 #   console.log('This is a Zip image!')
 ###
 exports.isValidZipImage = (zip) ->
-	return utils.isZip(zip) and exports.getImageEntries(zip).length is 1
+	return exports.isZip(zip) and exports.getImageEntries(zip).length is 1
 
 ###*
 # @summary Extract the image file from a Zip image
@@ -116,3 +118,22 @@ exports.extractImage = (zip) ->
 
 	return utils.extractFile(zip, imageEntry.name).tap (stream) ->
 		stream.length = imageEntry.size
+
+###*
+# @summary Check if a file is a zip archive
+# @function
+# @public
+#
+# @param {String} file - file path
+# @returns {Boolean} whether the file is a zip archive
+#
+# @example
+# zipImage = require('resin-zip-image')
+#
+# if zipImage.isZip('path/to/file')
+#   console.log('This file is a Zip archive!')
+###
+exports.isZip = (file) ->
+	chunk = readChunk.sync(file, 0, 262)
+	return fileType(chunk)?.mime is 'application/zip'
+
