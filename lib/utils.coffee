@@ -15,27 +15,9 @@ limitations under the License.
 ###
 
 Promise = require('bluebird')
-readChunk = require('read-chunk')
-fileType = require('file-type')
 fs = require('fs')
 path = require('path')
 unzip = require('unzip2')
-
-###*
-# @summary Check if a file is a zip archive
-# @function
-# @public
-#
-# @param {String} file - file path
-# @returns {Boolean} whether the file is a zip archive
-#
-# @example
-# if utils.isZip('path/to/file')
-#   console.log('This file is a Zip archive!')
-###
-exports.isZip = (file) ->
-	chunk = readChunk.sync(file, 0, 262)
-	return fileType(chunk)?.mime is 'application/zip'
 
 ###*
 # @summary Extract a file from a zip archive

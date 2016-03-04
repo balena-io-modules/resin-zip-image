@@ -18,13 +18,17 @@ limitations under the License.
 /**
  * @module zip
  */
-var AdmZip, IMAGE_FORMATS, path, utils, _;
+var AdmZip, IMAGE_FORMATS, fileType, path, readChunk, utils, _;
 
 _ = require('lodash');
 
 path = require('path');
 
 AdmZip = require('adm-zip');
+
+readChunk = require('read-chunk');
+
+fileType = require('file-type');
 
 utils = require('./utils');
 
@@ -57,7 +61,7 @@ IMAGE_FORMATS = ['.iso', '.img'];
 
 exports.getImageEntries = function(zip) {
   var admZip;
-  if (!utils.isZip(zip)) {
+  if (!exports.isZip(zip)) {
     throw new Error('Invalid zip image');
   }
   admZip = new AdmZip(zip);
@@ -95,7 +99,7 @@ exports.getImageEntries = function(zip) {
  */
 
 exports.isValidZipImage = function(zip) {
-  return utils.isZip(zip) && exports.getImageEntries(zip).length === 1;
+  return exports.isZip(zip) && exports.getImageEntries(zip).length === 1;
 };
 
 
@@ -126,4 +130,26 @@ exports.extractImage = function(zip) {
   return utils.extractFile(zip, imageEntry.name).tap(function(stream) {
     return stream.length = imageEntry.size;
   });
+};
+
+
+/**
+ * @summary Check if a file is a zip archive
+ * @function
+ * @public
+ *
+ * @param {String} file - file path
+ * @returns {Boolean} whether the file is a zip archive
+ *
+ * @example
+ * zipImage = require('resin-zip-image')
+ *
+ * if zipImage.isZip('path/to/file')
+ *   console.log('This file is a Zip archive!')
+ */
+
+exports.isZip = function(file) {
+  var chunk, _ref;
+  chunk = readChunk.sync(file, 0, 262);
+  return ((_ref = fileType(chunk)) != null ? _ref.mime : void 0) === 'application/zip';
 };

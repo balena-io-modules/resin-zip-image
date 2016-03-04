@@ -204,3 +204,21 @@ describe 'Resin Zip Image', ->
 				m.chai.expect =>
 					zipImage.extractImage(@zip)
 				.to.throw('Invalid zip image')
+
+	describe '.isZip()', ->
+
+		describe 'given an invalid zip archive', ->
+
+			beforeEach ->
+				@zip = path.join(zips, 'invalid.zip')
+
+			it 'should return false', ->
+				m.chai.expect(zipImage.isZip(@zip)).to.be.false
+
+		describe 'given an valid zip archive', ->
+
+			beforeEach ->
+				@zip = path.join(zips, 'empty.zip')
+
+			it 'should return true', ->
+				m.chai.expect(zipImage.isZip(@zip)).to.be.true

@@ -14,39 +14,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-var Promise, fileType, fs, path, readChunk, unzip;
+var Promise, fs, path, unzip;
 
 Promise = require('bluebird');
-
-readChunk = require('read-chunk');
-
-fileType = require('file-type');
 
 fs = require('fs');
 
 path = require('path');
 
 unzip = require('unzip2');
-
-
-/**
- * @summary Check if a file is a zip archive
- * @function
- * @public
- *
- * @param {String} file - file path
- * @returns {Boolean} whether the file is a zip archive
- *
- * @example
- * if utils.isZip('path/to/file')
- *   console.log('This file is a Zip archive!')
- */
-
-exports.isZip = function(file) {
-  var chunk, _ref;
-  chunk = readChunk.sync(file, 0, 262);
-  return ((_ref = fileType(chunk)) != null ? _ref.mime : void 0) === 'application/zip';
-};
 
 
 /**
