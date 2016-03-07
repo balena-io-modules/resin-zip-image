@@ -61,7 +61,10 @@ exports.getImageEntries = (zip) ->
 
 	return _.chain(admZip.getEntries())
 		.filter (entry) ->
-			return _.includes(IMAGE_FORMATS, path.extname(entry.name))
+			return _.every [
+				_.includes(IMAGE_FORMATS, path.extname(entry.name))
+				_.first(entry.name) isnt '.'
+			]
 		.map (entry) ->
 			return {
 				name: entry.name
