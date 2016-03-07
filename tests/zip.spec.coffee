@@ -179,6 +179,8 @@ describe 'Resin Zip Image', ->
 				@image = path.join(zips, 'images', 'raspberrypi.img')
 
 			it 'should be able to extract the image', (done) ->
+				@timeout(10000)
+
 				output = tmp.tmpNameSync()
 
 				zipImage.extractImage(@zip).then (stream) ->
