@@ -66,7 +66,7 @@ exports.getImageEntries = function(zip) {
   }
   admZip = new AdmZip(zip);
   return _.chain(admZip.getEntries()).filter(function(entry) {
-    return _.includes(IMAGE_FORMATS, path.extname(entry.name));
+    return _.every([_.includes(IMAGE_FORMATS, path.extname(entry.name)), _.first(entry.name) !== '.']);
   }).map(function(entry) {
     return {
       name: entry.name,

@@ -37,6 +37,17 @@ describe 'Resin Zip Image', ->
 			it 'should return an empty array', ->
 				m.chai.expect(zipImage.getImageEntries(@zip)).to.deep.equal([])
 
+		describe 'given a zip archive with image hidden files', ->
+
+			beforeEach ->
+				@zip = path.join(zips, 'hidden.zip')
+
+			it 'should ignore the hidden files', ->
+				m.chai.expect(zipImage.getImageEntries(@zip)).to.deep.equal [
+					name: 'raspberrypi.img'
+					size: 33554432
+				]
+
 		describe 'given a zip with a single image file', ->
 
 			beforeEach ->
@@ -96,6 +107,14 @@ describe 'Resin Zip Image', ->
 
 			it 'should return false', ->
 				m.chai.expect(zipImage.isValidZipImage(@zip)).to.be.false
+
+		describe 'given a zip archive with image hidden files', ->
+
+			beforeEach ->
+				@zip = path.join(zips, 'hidden.zip')
+
+			it 'should return true', ->
+				m.chai.expect(zipImage.isValidZipImage(@zip)).to.be.true
 
 		describe 'given a zip with a single image file', ->
 
@@ -160,6 +179,8 @@ describe 'Resin Zip Image', ->
 				@image = path.join(zips, 'images', 'raspberrypi.img')
 
 			it 'should be able to extract the image', (done) ->
+				@timeout(10000)
+
 				output = tmp.tmpNameSync()
 
 				zipImage.extractImage(@zip).then (stream) ->
