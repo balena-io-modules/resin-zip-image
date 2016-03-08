@@ -4,9 +4,9 @@ resin-zip-image
 > Resin.io Zip image manipulation utilities
 
 [![npm version](https://badge.fury.io/js/resin-zip-image.svg)](http://badge.fury.io/js/resin-zip-image)
-[![dependencies](https://david-dm.org/resin-io/resin-zip-image.svg)](https://david-dm.org/resin-io/resin-zip-image.svg)
-[![Build Status](https://travis-ci.org/resin-io/resin-zip-image.svg?branch=master)](https://travis-ci.org/resin-io/resin-zip-image)
-[![Build status](https://ci.appveyor.com/api/projects/status/d23c10y3o8lxgjbw/branch/master?svg=true)](https://ci.appveyor.com/project/resin-io/resin-zip-image/branch/master)
+[![dependencies](https://david-dm.org/resin-io-modules/resin-zip-image.svg)](https://david-dm.org/resin-io-modules/resin-zip-image.svg)
+[![Build Status](https://travis-ci.org/resin-io-modules/resin-zip-image.svg?branch=master)](https://travis-ci.org/resin-io-modules/resin-zip-image)
+[![Build status](https://ci.appveyor.com/api/projects/status/5exclqpf4v6iugmp/branch/master?svg=true)](https://ci.appveyor.com/project/resin-io/resin-zip-image/branch/master)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/resin-io/chat)
 
 Role
