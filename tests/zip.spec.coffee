@@ -243,3 +243,8 @@ describe 'Resin Zip Image', ->
 
 			it 'should return true', ->
 				m.chai.expect(zipImage.isZip(@zip)).to.be.true
+
+		describe 'given a non existent file', ->
+
+			it 'should return false', ->
+				m.chai.expect(zipImage.isZip('foobarbaz.zip')).to.be.false

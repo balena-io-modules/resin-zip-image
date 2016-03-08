@@ -137,6 +137,11 @@ exports.extractImage = (zip) ->
 #   console.log('This file is a Zip archive!')
 ###
 exports.isZip = (file) ->
-	chunk = readChunk.sync(file, 0, 262)
+	try
+		chunk = readChunk.sync(file, 0, 262)
+	catch error
+		return false if error.code is 'ENOENT'
+		throw error
+
 	return fileType(chunk)?.mime is 'application/zip'
 
